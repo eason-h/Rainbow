@@ -33,6 +33,7 @@ struct ConsoleModesExtractor: ModesExtractor {
     typealias ResultType = UInt8
     func extractModeCodes(string: String) -> (codes: [UInt8], text: String) {
         let token = ControlCode.CSI
+        
         var index = string.index(string.startIndex, offsetBy: token.characters.count)
         var codesString = ""
         while string.characters[index] != "m" {
@@ -41,6 +42,7 @@ struct ConsoleModesExtractor: ModesExtractor {
         }
         
         let codes = codesString.characters.split(separator: ";", maxSplits: Int.max, omittingEmptySubsequences: false).flatMap { UInt8(String($0)) }
+        
         let startIndex = index
         
         let endIndex = string.index(string.endIndex, offsetBy: -"\(token)0m".characters.count)
@@ -69,7 +71,7 @@ struct XcodeColorsModesExtractor: ModesExtractor {
             }
             
             codes.append(codesString)
-            index = string.index(after: index)
+            //            index = index.successor()
             outer = String(string.characters[index])
         }
         

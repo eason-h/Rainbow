@@ -55,12 +55,12 @@ struct XcodeColorsStringGenerator: StringGenerator {
         var result = ""
         var added = false
         
-        if let color = color where color != .Default {
+        if let color = color , color != .Default {
             result += "\(ControlCode.CSI)\(color.xcodeColorsDescription);"
             added = true
         }
         
-        if let backgroundColor = backgroundColor where backgroundColor != .Default {
+        if let backgroundColor = backgroundColor , backgroundColor != .Default {
             result += "\(ControlCode.CSI)\(backgroundColor.xcodeColorsDescription);"
             added = true
         }
